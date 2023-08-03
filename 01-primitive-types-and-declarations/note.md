@@ -10,7 +10,10 @@
     - [Integer types](#integer-types)
     - [Floating point types](#floating-point-types)
   - [String and Rune](#string-and-rune)
-- [Type Conversion](#type-conversion)
+- [Explicit Type Conversion](#explicit-type-conversion)
+- [var Versus :=](#var-versus-)
+- [Using const](#using-const)
+  - [Typed and Untyped const](#typed-and-untyped-const)
 
 
 # Zero Value
@@ -46,5 +49,48 @@ The `rune` type is an alias for the `int32` type just like `byte` is an alias fo
 
 >💡 if you are referring to a character, use the rune type not int32
 
-# Type Conversion
-TODO: write the detail
+# Explicit Type Conversion
+Go didn't support automatic type promotion or conversion.
+```go
+var x int = 10;
+var y float64 = 30.2;
+var z float64 = float64(x) + y;
+var d int = x + int(y);
+```
+
+# var Versus :=
+```go
+// declare a variable with value
+var x = 10
+var x int = 10
+x := 10 // those three are the same
+
+// declare a variable and assign it the zero-value
+var x int
+```
+
+# Using const
+However, const in Go is very limited. Constants in Go are a way to give names to literals. They can only hold values that the compiler can figure out at compile time such as `Numeric literals`, `true and false`, `Strigns`, `Runes`, `The built-in funcitons complex, real, imag, len, and cap`, `Expression that consist of operators and the preceding values`
+```go
+const x int64 = 10;
+
+const (
+  idKey = "id"
+  namKey = "name"
+)
+```
+## Typed and Untyped const
+The difference between these two are, you put type in the declaration
+```go
+// untyped const
+const x = 10
+
+//these are legal
+var y int = x
+var z float64 = x
+var d byte = x
+
+// typed const
+const typedX int = 10 // this constant can only be assigned directly to an int. assigning it to any other type produces a compile-time error like this.
+
+```
